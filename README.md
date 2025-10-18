@@ -72,6 +72,4 @@ Feel free to explore the project, suggest improvements, or open issues and pull 
 
 ---
 
-## 📝 License
 
-This project is licensed under the **MIT License** – see [LICENSE](LICENSE) for details.
