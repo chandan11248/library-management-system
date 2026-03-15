@@ -1,0 +1,12 @@
+# Compiled binaries
+project1
+project1.exe
+*.o
+*.out
+
+# macOS debug symbols
+*.dSYM/
+
+# Runtime database files
+library.db
+library.db.bak
