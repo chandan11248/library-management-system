@@ -1,0 +1,49 @@
+{% extends "library/base.html" %}
+
+{% block title %}Activity Log - Library Management System{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2><i class="fas fa-history me-2"></i>Activity Log</h2>
+    <p class="text-muted">Recent request/response activity captured by the <code>RequestLoggingMiddleware</code>.</p>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Method</th>
+                    <th>Path</th>
+                    <th>User</th>
+                    <th>IP</th>
+                    <th>Status</th>
+                    <th>Response Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td class="small">{{ log.timestamp|date:"M d, H:i:s" }}</td>
+                    <td>
+                        <span class="badge {% if log.method == 'GET' %}bg-primary{% elif log.method == 'POST' %}bg-success{% else %}bg-secondary{% endif %}">
+                            {{ log.method }}
+                        </span>
+                    </td>
+                    <td class="small">{{ log.path }}</td>
+                    <td>{{ log.user }}</td>
+                    <td class="small">{{ log.ip_address }}</td>
+                    <td>
+                        <span class="badge {% if log.status_code == 200 %}bg-success{% elif log.status_code == 302 %}bg-info{% elif log.status_code >= 400 %}bg-danger{% else %}bg-secondary{% endif %}">
+                            {{ log.status_code }}
+                        </span>
+                    </td>
+                    <td class="small">{{ log.response_time_ms }} ms</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="text-center text-muted">No activity recorded yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
